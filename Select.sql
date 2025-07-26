@@ -8,4 +8,5 @@ FROM parks_and_recreation.employee_demographics;
 
 # DISTINCT is used to find uniqueness in a column
 SELECT DISTINCT gender
-FROM parks_departments.employee_demographics;
+FROM parks_and_recreation.employee_demographics;
+-- it will show Male and Female as the only 2 outputs
