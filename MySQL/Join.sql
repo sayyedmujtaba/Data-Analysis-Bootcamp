@@ -54,7 +54,7 @@ from employee_salary emp1
 join employee_salary emp2
 on emp1.employee_id + 1 = emp2.employee_id;
 
--- joining multiple tables together
+-- joining more than two tables together
 select *
 from employee_demographics as dem
 inner join employee_salary as sal
