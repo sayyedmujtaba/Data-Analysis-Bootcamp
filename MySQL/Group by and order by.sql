@@ -11,6 +11,7 @@ group by salary; 				#multiple people have same salries but here it will show on
 select occupation, salary
 from employee_salary
 group by occupation, salary; 		# Multiple items can also be grouped together
+
 select * from employee_demographics;
 select * from employee_salary;
 
