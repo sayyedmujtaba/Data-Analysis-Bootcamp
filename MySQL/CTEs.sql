@@ -1,4 +1,12 @@
 -- CTE: common table expression
+
+-- syntax
+-- WITH cte_name AS (
+--     SELECT ...
+-- )
+-- SELECT ...
+-- FROM cte_name;
+
 with CTE_Example as
 (
 select gender,
