@@ -1,4 +1,4 @@
--- ORDER BY --
+-- GROUP BY --
 
 select gender, avg(age), max(age), min(age), count(gender)
 from employee_demographics
@@ -16,7 +16,7 @@ select * from employee_demographics;
 select * from employee_salary;
 
 
--- GROUP BY
+-- ORDER BY
 -- It ascnd or descend the result set, by default it will ascend
 select *
 from employee_demographics
