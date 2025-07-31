@@ -36,4 +36,4 @@ begin
 end $$
 delimiter ;
 
-call salaries(5); -- it will show the salry of only select emplyee
+call salaries(5); -- it will show the salry of only select employee
