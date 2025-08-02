@@ -132,5 +132,101 @@ select *
 from layoffs_staging2
 order by country;
 
+-- now if we want to fdo explorartory data analysis
+-- we will to convert the date column from text datatype to actual date datatype
+-- so for that we will use the following method
 
--- continue from 27:49
+select `date`,
+str_to_date(`date`, '%m/%d/%Y') -- this is the best format for date
+from layoffs_staging2;
+
+update layoffs_staging2
+set `date` = str_to_date(`date`, '%m/%d/%Y');
+-- lets check dates now
+select `date`
+from layoffs_staging2;
+
+-- you will see that the date is still in text data type so for that
+alter table layoffs_staging2
+modify column `date` date;
+-- now the data is in date datatype
+
+-- stage 2 completed
+
+-- stage 3
+-- lets work with null and blank data
+-- lets take a look at null industries
+select *
+from layoffs_staging2
+where industry is null
+or industry = ''
+;
+
+-- we have 3 blank while 1 null
+-- first of all lets convert blank data to null, so we will easily populate the null area then
+
+update layoffs_staging2
+set industry = null
+where industry = ''
+;
+
+-- so if we check for null or blank industries now we will get all the industries nul
+-- lets update null industries one by one
+
+
+-- lets check for Airbnb
+select *
+from layoffs_staging2
+where company='Airbnb'
+;
+
+select t1.industry, t2.industry
+from layoffs_staging2 t1
+join layoffs_staging2 t2
+on t1.company = t2.company
+where (t1.industry is null or t1.industry = '')
+and t2.industry is not null;
+
+update layoffs_staging2 t1
+join layoffs_staging2 t2
+on t1.company = t2.company
+set t1.industry = t2.industry
+where t1.industry is null
+and t2.industry is not null;
+
+-- now lets check again if there is another null in industry
+select *
+from layoffs_staging2
+where industry is null
+or industry = ''
+;
+-- so bally is still null, lets find similar company to bally
+select *
+from layoffs_staging2
+where company like 'Bally%';
+-- we can see that bally has no other row
+
+-- stage 3 completed
+
+-- stage 4: rmoving unneccessary columns
+
+select *
+from layoffs_staging2
+where total_laid_off is null
+and percentage_laid_off is null;
+
+-- as in the data we are going to work with total_laid_off and percentage_laid-off,
+-- so we will remove all the rows where data from these two columns is missing
+
+delete 
+from layoffs_staging2
+where total_laid_off is null
+and percentage_laid_off is null;
+-- the delete is use to ionly remove data from rows not the entire column
+select *
+from layoffs_staging2;
+
+-- now the row_num is an extra column we created amd we will not use it ahead
+-- so let delete that also
+alter table layoffs_staging2
+drop column row_num;
