@@ -14,7 +14,7 @@ url = "https://www.scrapethissite.com/"
 
 page = requests.get(url)
 
-soup = BeautifulSoup(page.text, "html")
+soup = BeautifulSoup(page.text, "html.parser")
 
 print(soup.prettify())
 
